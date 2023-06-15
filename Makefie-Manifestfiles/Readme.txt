@@ -1,0 +1,1 @@
+Run the deploy.sh file for the deployment of all manifest files using makefile in this folder
