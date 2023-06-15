@@ -2,7 +2,21 @@
 # This is a YAML-formatted file.
 # Declare variables to be passed into your templates.
 
+namespace: sre-techtask1
 replicaCount: 2
+host: dadjokes.local.test
 
-image_name: yesinteractive/dadjokes
+image:
+  repository: yesinteractive/dadjokes
+  pullPolicy: IfNotPresent
+  tag: ""
 
+service:
+  type: ClusterIP
+
+autoscaling:
+  enabled: true
+  minReplicas: 2
+  maxReplicas: 10
+  targetCPUUtilizationPercentage: 80
+  # targetMemoryUtilizationPercentage: 80

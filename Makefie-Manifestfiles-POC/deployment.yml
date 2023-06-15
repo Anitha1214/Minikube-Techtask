@@ -2,9 +2,9 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: dadjokes-deployment
-  namespace: {{ .Values.namespace }}
+  namespace: sre-techtask-mk
 spec:
-  replicas: {{ .Values.replicaCount }}
+  replicas: 2
   selector:
     matchLabels:
       app: dadjokes
@@ -15,9 +15,7 @@ spec:
     spec:
       containers:
         - name: dadjokes
-          #image: yesinteractive/dadjokes
-          image: "{{ .Values.image.repository }}:{{ .Values.image.tag }}"
-          imagePullPolicy: {{ .Values.image.pullPolicy }}
+          image: yesinteractive/dadjokes
           ports:
             - containerPort: 8100
           resources:
