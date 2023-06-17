@@ -1,0 +1,41 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: dadjokes-deployment
+  namespace: {{ .Values.namespace }}
+spec:
+  replicas: {{ .Values.replicaCount }}
+  selector:
+    matchLabels:
+      app: dadjokes
+  template:
+    metadata:
+      labels:
+        app: dadjokes
+    spec:
+      containers:
+        - name: dadjokes
+          #image: yesinteractive/dadjokes
+          image: "{{ .Values.image.repository }}:{{ .Values.image.tag }}"
+          imagePullPolicy: {{ .Values.image.pullPolicy }}
+          ports:
+            - containerPort: 8100
+          resources:
+            limits:
+              cpu: "200m"  # 200 milliCPU (0.2 CPU)
+              memory: "256Mi"  # 256 Mebibytes
+            requests:
+              cpu: "100m"  # 100 milliCPU (0.1 CPU)
+              memory: "128Mi"  # 128 Mebibytes
+          readinessProbe:
+            httpGet:
+              path: /
+              port: 8100
+            initialDelaySeconds: 5
+            periodSeconds: 10
+          livenessProbe:
+            httpGet:
+              path: /
+              port: 8100
+            initialDelaySeconds: 10
+            periodSeconds: 15

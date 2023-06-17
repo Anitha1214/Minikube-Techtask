@@ -1,0 +1,22 @@
+# Default values for dadjokes-helm.
+# This is a YAML-formatted file.
+# Declare variables to be passed into your templates.
+
+namespace: sre-techtask1
+replicaCount: 2
+host: "dadjokes.anitha"
+
+image:
+  repository: yesinteractive/dadjokes
+  pullPolicy: IfNotPresent
+  tag: "latest"
+
+service:
+  type: ClusterIP
+
+autoscaling:
+  enabled: true
+  minReplicas: 2
+  maxReplicas: 10
+  targetCPUUtilizationPercentage: 50
+  # targetMemoryUtilizationPercentage: 80

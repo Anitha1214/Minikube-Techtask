@@ -1,0 +1,13 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: dadjokes-service
+  namespace: {{ .Values.namespace }}
+spec:
+  selector:
+    app: dadjokes
+  type: {{ .Values.service.type }}
+  ports:
+    - protocol: TCP
+      port: 80
+      targetPort: 8100
